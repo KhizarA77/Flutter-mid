@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mid_practice/TextWidget.dart';
 import 'package:mid_practice/launch_model.dart';
 import 'dart:math';
 
@@ -59,30 +60,7 @@ class _custom_mission_listState extends State<custom_mission_list> {
                   title: Text(missions[index].missionName ?? 'Error fetching, please reload'),
                   subtitle: Column(
                     children: [
-                        Text(
-                        missions[index].description ?? 'Error Fetching, please reload',
-                        maxLines: isExpanded ? null : 2,
-
-                        ),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: SizedBox(
-                          width: 90,
-                          height: 25,
-                          child: ElevatedButton(
-                              onPressed: (){
-                                setState(() {
-                                  isExpandedList[index] = !isExpanded;
-                                });
-                              }, child: Row(
-                                children: [
-                                  Text(isExpanded ? 'Less' : 'More'),
-                                  const Icon(Icons.arrow_downward_rounded),
-                                ],
-                              ),
-                            ),
-                        ),
-                      ),
+                      CustomTextWidget(description: missions[index].description ?? 'Error fetching, please reload'),
                       Align(
                         alignment: Alignment.center,
                         child: Wrap(
