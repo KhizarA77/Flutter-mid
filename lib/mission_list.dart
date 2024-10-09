@@ -25,7 +25,6 @@ class _custom_mission_listState extends State<custom_mission_list> {
     }
   }
 
-  List<bool> isExpandedList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -42,34 +41,32 @@ class _custom_mission_listState extends State<custom_mission_list> {
         builder: (context, snap) {
           if (snap.hasData) {
             List<Launch> missions = snap.data as List<Launch>;
-            if (isExpandedList.isEmpty) {
-              isExpandedList = List<bool>.filled(missions.length, false);
-            }
             return ListView.separated(
               itemCount: missions.length,
               separatorBuilder: (context, index) => const Divider(thickness: 0.5,),
               padding: const EdgeInsets.all(15),
               itemBuilder: (context, index) {
-                bool isExpanded = isExpandedList[index];
-                return ListTile(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: const Color.fromARGB(255, 215, 215, 215), width: 2),
-                  ),
-                  contentPadding: const EdgeInsets.all(20),
-                  title: Text(missions[index].missionName ?? 'Error fetching, please reload'),
-                  subtitle: Column(
-                    children: [
-                      CustomTextWidget(description: missions[index].description ?? 'Error fetching, please reload'),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Wrap(
-                        spacing: 2,
-                        runSpacing: 2,
-                        children: missions[index].payloadIds!.map((payloadId) => Chip(label: Text(payloadId), backgroundColor: Color.fromARGB(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), Random().nextInt(255)))).toList(),
+                return Card(
+                  color: Color.fromARGB(255, 240, 240, 240),
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    contentPadding: const EdgeInsets.all(20),
+                    title: Text(missions[index].missionName ?? 'Error fetching, please reload'),
+                    subtitle: Column(
+                      children: [
+                        CustomTextWidget(description: missions[index].description ?? 'Error fetching, please reload'),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Wrap(
+                          spacing: 2,
+                          runSpacing: 2,
+                          children: missions[index].payloadIds!.map((payloadId) => Chip(label: Text(payloadId), backgroundColor: Color.fromARGB(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), Random().nextInt(255)))).toList(),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
